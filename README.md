@@ -157,7 +157,8 @@ python manage.py createsuperuser
 
 ## 📂 **Sample Deviation Report**
 Download the **Deviation Report Excel File** here:  
-➡ [Deviation Report (.xlsm)](reports/AI-DS Week 9 Deviation report.xlsx)  
+➡ [Deviation Report (.xlsm)](reports/AI-DS%20Week%209%20Deviation%20report.xlsx)
+ 
 
 
 ---
