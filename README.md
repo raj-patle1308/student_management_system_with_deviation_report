@@ -1,7 +1,7 @@
 
 ---
 
-# 📘 **Django Student Management System (Beta)**
+# 📘 **Django Student Management System **
 
 Welcome to the **Django Student Management System**! 🎓✨
 A simple yet powerful **Student Management System** built with **Python (Django)** for educational purposes.
@@ -132,8 +132,8 @@ python manage.py createsuperuser
 | Role    | Email                                         | Password |
 | ------- | --------------------------------------------- | -------- |
 | Admin   | [admin@gmail.com](mailto:admin@gmail.com)     | admin    |
-| Staff   | [staff@gmail.com](mailto:staff@gmail.com)     | staff    |
-| Student | [student@gmail.com](mailto:student@gmail.com) | student  |
+| Staff   | [mrunal@gmail.com](mailto:staff@gmail.com)     | mrunal    |
+| Student | [harshita@gmail.com](mailto:student@gmail.com) | harshita  |
 
 
 ---
