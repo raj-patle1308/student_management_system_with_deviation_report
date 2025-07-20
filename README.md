@@ -166,13 +166,7 @@ Download the **Deviation Report Excel File** here:
 
 ## 📚 **About**
 
-This project was built as part of learning Django through the **SuperCoders** tutorial series.
-It’s a beginner-friendly project demonstrating **Django Models, Views, Templates, Admin, and Authentication**.
-
 ✅ Feel free to **fork**, **improve**, and share your contributions.
 Happy Coding! 😃
 
 ---
-
-🔥 **Would you like me to also create a properly formatted version with badges (Django, Python, License, Stars), screenshots, and a "How to Contribute" section to make it look like a professional open-source project?**
-Or should I **convert this into a perfect GitHub README with Markdown styling and emojis**?
