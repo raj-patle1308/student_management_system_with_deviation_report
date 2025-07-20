@@ -152,15 +152,13 @@ python manage.py createsuperuser
 ### 📊 **Reports Section**
 ![Reports](screenshots/reports.png)
 
-*(Make sure to create a `screenshots` folder in your repo and upload the images there.)*  
 
 ---
 
 ## 📂 **Sample Deviation Report**
 Download the **Deviation Report Excel File** here:  
-➡ [Deviation Report (.xlsm)](reports/AI-DS Week 9 Deviation report.xlsm)  
+➡ [Deviation Report (.xlsm)](screenshots/AI-DS Week 9 Deviation report.xlsx)  
 
-*(Create a `reports` folder in your repo and upload `deviation_report.xlsm`.)*  
 
 ---
 
