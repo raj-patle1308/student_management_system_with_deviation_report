@@ -1,0 +1,41 @@
+<!-- add_timetable.html -->
+{% extends 'hod_template/base_template.html' %}
+
+{% block page_title %}
+    Add Timetable
+{% endblock page_title %}
+
+{% block main_content %}
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white text-center">
+            <h3>Add Timetable</h3>
+        </div>
+        <div class="card-body">
+            {% if messages %}
+            <div>
+                {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %} mt-3" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="title" class="form-label">Title:</label>
+                    <input type="text" id="title" name="title" class="form-control" placeholder="Enter timetable title" required>
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label">Upload Timetable Image:</label>  <!-- Use 'image' instead of 'timetable_image' -->
+                    <input type="file" id="image" name="image" class="form-control" accept="image/*" required>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success">Add Timetable</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %} 
+
+{% block content %}
+
+<style>
+  body {
+    background-color: #ffffff; /* Light blue background color */
+    font-family: 'Arial', sans-serif;
+  }
+  .login-box {
+    width: 400px;
+    margin: 100px auto;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .login-logo a {
+    font-size: 24px;
+    color: #007bff;
+    font-weight: bold;
+  }
+  .card {
+    background: #fff;
+    border: none;
+  }
+  .login-card-body {
+    padding: 30px;
+  }
+  .login-box-msg {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  .form-control {
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+  }
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+  .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  .alert {
+    margin-top: 15px;
+  }
+  .input-group-text {
+    background-color: #e9ecef;
+    border-radius: 0 5px 5px 0;
+  }
+  .close {
+    font-size: 20px;
+  }
+</style>
+
+<body class="hold-transition login-page">
+  <div class="login-box">
+    <div class="login-logo">
+      <a href="{% url 'login' %}"><b>Student</b> Management System</a>
+    </div>
+    <!-- /.login-logo -->
+    <div class="card">
+      <div class="card-body login-card-body">
+        <p class="login-box-msg">Sign in to your account</p>
+
+        <form action="{% url 'doLogin' %}" method="POST">
+          {% csrf_token %}
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Email" name="email" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Password" name="password" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          </div>
+
+          {% if messages %}
+          <div class="col-12">
+            {% for message in messages %}
+              <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <!-- /.login-box -->
+
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'hod_template/base_template.html' %}
+
+{% block page_title %}
+    Manage Timetables
+{% endblock page_title %}
+
+{% block main_content %}
+<div class="container mt-5">
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white text-center">
+            <h3>Manage Timetables</h3>
+        </div>
+        <div class="card-body">
+            {% if messages %}
+            <div>
+                {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %} mt-3" role="alert">
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <table class="table table-bordered table-hover mt-4">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Title</th>
+                        <th>Image</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for timetable in timetables %}
+                    <tr>
+                        <td>{{ timetable.title }}</td>
+                        <td>
+                            <!-- Link to trigger the modal -->
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#imageModal{{ timetable.id }}">
+                                <img src="{{ timetable.image.url }}" alt="Timetable" class="img-thumbnail" width="100">
+                            </a>
+                        </td>
+                        <td>
+                            <form method="post" class="d-inline">
+                                {% csrf_token %}
+                                <input type="hidden" name="timetable_id" value="{{ timetable.id }}">
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this timetable?');">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+
+                    <!-- Modal for large image -->
+                    <div class="modal fade" id="imageModal{{ timetable.id }}" tabindex="-1" aria-labelledby="imageModalLabel{{ timetable.id }}" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="imageModalLabel{{ timetable.id }}">{{ timetable.title }}</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <!-- Display the image in full size inside the modal -->
+                                    <img src="{{ timetable.image.url }}" alt="Timetable" class="img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

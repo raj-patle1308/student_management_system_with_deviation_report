@@ -1,0 +1,236 @@
+{% load static %}
+
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="background-color: #000000;">
+  <!-- Brand Logo -->
+  <a href="{% url 'admin_home' %}" class="brand-link" style="background-color: #1e2125;">
+    <img src="{% static 'dist/img/AdminLTELogo.png' %}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+        style="opacity: .8">
+    <span class="brand-text font-weight-light" style="color: #f39c12;">Open University</span>
+  </a>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <!-- Sidebar user panel (optional) -->
+    <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="image">
+        <img src="{% static 'dist/img/user2-160x160.jpg' %}" class="img-circle elevation-2" alt="User Image">
+      </div>
+      <div class="info">
+        <a href="{% url 'admin_profile' %}" class="d-block" style="color: #ffffff;">{{ user.first_name }} {{ user.last_name }}</a>
+      </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <nav class="mt-2">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+        <!-- Home Link -->
+        <li class="nav-item">
+          {% url 'admin_home' as admin_home %}
+          <a href="{{ admin_home }}" class="nav-link {% if request.path == admin_home %} active {% endif %}" style="color: #ffffff;">
+            <i class="nav-icon fas fa-tachometer-alt" style="color: #f39c12;"></i>
+            <p>
+              Home
+            </p>
+          </a>
+        </li>
+
+        <!-- Manage Staff Link -->
+        <li class="nav-item">
+          {% url 'manage_staff' as manage_staff %}
+          {% url 'edit_staff' staff_id=id as edit_staff %}
+          <a href="{{ manage_staff }}" class="nav-link {% if request.path == manage_staff %} active {% endif %} {% if request.path == edit_staff %} active {% endif %}" style="color: #ffffff;">
+            <i class="nav-icon fas fa-chalkboard-teacher" style="color: #f39c12;"></i>
+            <p>
+              Manage Staff
+            </p>
+          </a>
+        </li>
+
+        <!-- Add Staff Link -->
+        <li class="nav-item">
+          {% url 'add_staff' as add_staff %}
+          <a href="{{ add_staff }}" class="nav-link {% if request.path == add_staff %} active {% endif %}" style="color: #ffffff;">
+            <i class="nav-icon fas fa-plus-circle" style="color: #f39c12;"></i>
+            <p>
+              Add Staff
+            </p>
+          </a>
+        </li>
+
+        <!-- Manage Student Link -->
+        <li class="nav-item">
+          {% url 'manage_student' as manage_student %}
+          {% url 'edit_student' student_id=id as edit_student %}
+          <a href="{{ manage_student }}" class="nav-link {% if request.path == manage_student %} active {% endif %} {% if request.path == edit_student %} active {% endif %}" style="color: #ffffff;">
+            <i class="nav-icon fas fa-user-graduate" style="color: #f39c12;"></i>
+            <p>
+              Manage Student
+            </p>
+          </a>
+        </li>
+
+        <!-- Add Student Link -->
+        <li class="nav-item">
+          {% url 'add_student' as add_student %}
+          <a href="{{ add_student }}" class="nav-link {% if request.path == add_student %} active {% endif %}" style="color: #ffffff;">
+            <i class="nav-icon fas fa-plus-circle" style="color: #f39c12;"></i>
+            <p>
+              Add Student
+            </p>
+          </a>
+        </li>
+
+        <!-- Manage Course Link -->
+        <li class="nav-item">
+          {% url 'manage_course' as manage_course %}
+          {% url 'edit_course' course_id=id as edit_course %}
+          <a href="{{ manage_course }}" class="nav-link {% if request.path == manage_course %} active {% endif %} {% if request.path == edit_course %} active {% endif %}" style="color: #ffffff;">
+            <i class="nav-icon fas fa-chalkboard" style="color: #f39c12;"></i>
+            <p>
+              Manage Course
+            </p>
+          </a>
+        </li>
+
+        <!-- Add Course Link -->
+        <li class="nav-item">
+          {% url 'add_course' as add_course %}
+          <a href="{{ add_course }}" class="nav-link {% if request.path == add_course %} active {% endif %}" style="color: #ffffff;">
+            <i class="nav-icon fas fa-plus-circle" style="color: #f39c12;"></i>
+            <p>
+              Add Course
+            </p>
+          </a>
+        </li>
+
+        <!-- Manage Subject Link -->
+        <li class="nav-item">
+          {% url 'manage_subject' as manage_subject %}
+          {% url 'edit_subject' subject_id=id as edit_subject %}
+          <a href="{{ manage_subject }}" class="nav-link {% if request.path == manage_subject %} active {% endif %} {% if request.path == edit_subject %} active {% endif %}" style="color: #ffffff;">
+            <i class="nav-icon fas fa-book" style="color: #f39c12;"></i>
+            <p>
+              Manage Subject
+            </p>
+          </a>
+        </li>
+
+        <!-- Add Subject Link -->
+        <li class="nav-item">
+          {% url 'add_subject' as add_subject %}
+          <a href="{{ add_subject }}" class="nav-link {% if request.path == add_subject %} active {% endif %}" style="color: #ffffff;">
+            <i class="nav-icon fas fa-plus-circle" style="color: #f39c12;"></i>
+            <p>
+              Add Subject
+            </p>
+          </a>
+        </li>
+
+        <!-- Other Links -->
+        <li class="nav-item">
+          {% url 'admin_view_attendance' as admin_view_attendance %}
+          <a href="{{ admin_view_attendance }}" class="nav-link {% if request.path == admin_view_attendance %} active {% endif %}" style="color: #ffffff;">
+            <i class="nav-icon fas fa-calendar-alt" style="color: #f39c12;"></i>
+            <p>
+              View Attendance
+            </p>
+          </a>
+        </li>
+
+        <!-- Feedback Links -->
+        <li class="nav-item">
+          {% url 'student_feedback_message' as student_feedback_message %}
+          <a href="{{ student_feedback_message }}" class="nav-link {% if request.path == student_feedback_message %} active {% endif %}" style="color: #ffffff;">
+            <i class="nav-icon fas fa-comments" style="color: #f39c12;"></i>
+            <p>
+              Student Feedback
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          {% url 'staff_feedback_message' as staff_feedback_message %}
+          <a href="{{ staff_feedback_message }}" class="nav-link {% if request.path == staff_feedback_message %} active {% endif %}" style="color: #ffffff;">
+            <i class="nav-icon fas fa-comments" style="color: #f39c12;"></i>
+            <p>
+              Staff Feedback
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          {% url 'student_leave_view' as student_leave_view %}
+          <a href="{{ student_leave_view }}" class="nav-link {% if request.path == student_leave_view %} active {% endif %}" style="color: #ffffff;">
+            <i class="nav-icon fas fa-calendar-times" style="color: #f39c12;"></i>
+            <p>
+              Student Leave
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          {% url 'staff_leave_view' as staff_leave_view %}
+          <a href="{{ staff_leave_view }}" class="nav-link {% if request.path == staff_leave_view %} active {% endif %}" style="color: #ffffff;">
+            <i class="nav-icon fas fa-calendar-times" style="color: #f39c12;"></i>
+            <p>
+              Staff Leave
+            </p>
+          </a>
+        </li>
+         <li class="nav-item">
+          {% url 'add_session' as add_session %}
+          <a href="{{ add_session }}" class="nav-link {% if request.path == add_session %} active {% endif %}" style="color: #ffffff;">
+            <i class="nav-icon fas fa-plus-circle" style="color: #f39c12;"></i>
+            <p>
+              Add Session
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          {% url 'manage_session' as manage_session %}
+          {% url 'edit_session' session_id=id as edit_session %}
+          <a href="{{ manage_session }}" class="nav-link {% if request.path == manage_session %} active {% endif %} {% if request.path == edit_session %} active {% endif %}" style="color: #ffffff;">
+            <i class="nav-icon fas fa-chalkboard-teacher" style="color: #f39c12;"></i>
+            <p>
+              Manage Session
+            </p>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          {% url 'add_timetable' as add_timetable %}
+          <a href="{{ add_timetable }}" class="nav-link {% if request.path == add_timetable %} active {% endif %}" style="color: #ffffff;">
+            <i class="nav-icon fas fa-calendar-plus" style="color: #f39c12;"></i>
+            <p>
+              Add Timetable
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          {% url 'manage_timetable' as manage_timetable %}
+          <a href="{{ manage_timetable }}" class="nav-link {% if request.path == manage_timetable %} active {% endif %}" style="color: #ffffff;">
+            <i class="nav-icon fas fa-calendar-check" style="color: #f39c12;"></i>
+            <p>
+              Manage Timetable
+            </p>
+          </a>
+        </li>
+        <li class="nav-item">
+          {% url 'generate_weekly_report' as generate_weekly_report %}
+          <a href="{{ generate_weekly_report }}" class="nav-link {% if request.path == generate_weekly_report %} active {% endif %}" style="color: #ffffff;">
+            <i class="nav-icon fas fa-chart-line" style="color: #f39c12;"></i>
+            <p>
+              Generate Report
+            </p>
+          </a>
+        </li>
+       
+      
+      
+        
+      </ul>
+    </nav>
+    <!-- /.sidebar-menu -->
+  </div>
+  <!-- /.sidebar -->
+</aside>

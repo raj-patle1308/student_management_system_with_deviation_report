@@ -1,0 +1,240 @@
+{% extends 'hod_template/base_template.html' %}
+
+{% block main_content %}
+    {% load static %}
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: 'Arial', sans-serif;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+            font-weight: bold;
+        }
+        .container {
+            margin-top: 50px;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .btn-primary, .btn-success {
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            margin-top: 20px;
+            width: 100%;
+        }
+        .btn-primary:hover, .btn-success:hover {
+            transition: all 0.3s ease;
+        }
+        #report-result {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #eaf2f8;
+            border-radius: 8px;
+            display: none;
+        }
+        .table-container {
+            margin-top: 30px;
+        }
+        .error-message {
+            color: red;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+        #progress-message {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            color: blue;
+            display: none;
+        }
+    </style>
+
+    <h1 class="text-center my-4">Generate and Download Weekly Report</h1>
+
+    <div class="container">
+        <form id="report-form" method="POST">
+            {% csrf_token %}
+
+            <!-- Start Date Input -->
+            <div class="form-group">
+                <label for="starting_date">Start Date:</label>
+                <input type="date" id="starting_date" name="starting_date" class="form-control" required>
+                <span id="start-date-error" class="error-message"></span>
+            </div>
+
+            <!-- End Date Input -->
+            <div class="form-group">
+                <label for="end_date">End Date:</label>
+                <input type="date" id="end_date" name="end_date" class="form-control" required>
+                <span id="end-date-error" class="error-message"></span>
+            </div>
+
+            <!-- Subject Selection -->
+            <div class="form-group">
+                <label>Select Subjects:</label>
+                <div>
+                    {% for subject in subjects %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="subjects" value="{{ subject.subject_name }}" id="subject_{{ subject.id }}">
+                            <label class="form-check-label" for="subject_{{ subject.id }}">{{ subject.subject_name }}</label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <div class="form-group">
+                
+                <button type="button" id="download-excel-btn" class="btn btn-success">Download Excel</button>
+            </div>
+        </form>
+
+        <!-- Progress Message -->
+        <div id="progress-message">Downloading report... Please wait.</div>
+
+        <!-- Result Section -->
+        <div id="report-result" class="table-container"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function clearErrors() {
+            $("#start-date-error").text("");
+            $("#end-date-error").text("");
+        }
+
+        function showProgress(message) {
+            $("#progress-message").text(message).show();
+        }
+
+        function hideProgress() {
+            $("#progress-message").hide();
+        }
+
+        // AJAX call to generate the report
+        $("#generate-report-btn").click(function() {
+            var startingDate = $("#starting_date").val();
+            var endDate = $("#end_date").val();
+            clearErrors();
+
+            if (!startingDate || !endDate) {
+                if (!startingDate) {
+                    $("#start-date-error").text("Please select a start date.");
+                }
+                if (!endDate) {
+                    $("#end-date-error").text("Please select an end date.");
+                }
+                return;
+            }
+
+            var selectedSubjects = [];
+            $("input[name='subjects']:checked").each(function() {
+                selectedSubjects.push($(this).val());
+            });
+
+            if (selectedSubjects.length === 0) {
+                alert("Please select at least one subject.");
+                return;
+            }
+
+            showProgress("Generating report... Please wait.");
+    
+            $.ajax({
+                url: "{% url 'generate_weekly_report' %}",
+                type: "POST",
+                data: {
+                    'starting_date': startingDate,
+                    'end_date': endDate,
+                    'subjects[]': selectedSubjects,
+                    'csrfmiddlewaretoken': $('input[name="csrfmiddlewaretoken"]').val(),
+                },
+                success: function(response) {
+                    $('#report-result').html(response.report).fadeIn();
+                    hideProgress();
+                },
+                error: function(xhr) {
+                    try {
+                        var errorResponse = JSON.parse(xhr.responseText);
+                        alert(errorResponse.error || "An error occurred while generating the report.");
+                    } catch (e) {
+                        alert("An unexpected error occurred. Please try again.");
+                    }
+                    hideProgress();
+                }
+            });
+        });
+
+        // AJAX call to download the Excel file
+        $("#download-excel-btn").click(function() {
+            var startingDate = $("#starting_date").val();
+            var endDate = $("#end_date").val();
+            clearErrors();
+
+            if (!startingDate || !endDate) {
+                if (!startingDate) {
+                    $("#start-date-error").text("Please select a start date.");
+                }
+                if (!endDate) {
+                    $("#end-date-error").text("Please select an end date.");
+                }
+                return;
+            }
+
+            var selectedSubjects = [];
+            $("input[name='subjects']:checked").each(function() {
+                selectedSubjects.push($(this).val());
+            });
+
+            if (selectedSubjects.length === 0) {
+                alert("Please select at least one subject.");
+                return;
+            }
+
+            showProgress("Downloading report... Please wait.");
+
+            $.ajax({
+                url: "{% url 'download_excel_report' %}",
+                type: "GET",
+                data: {
+                    starting_date: startingDate,
+                    end_date: endDate,
+                    "subjects[]": selectedSubjects,
+                },
+                xhrFields: {
+                    responseType: 'blob',
+                },
+                success: function(data, status, xhr) {
+                    var filename = xhr.getResponseHeader("Content-Disposition")
+                        .split("filename=")[1]
+                        .replace(/['"]/g, "");
+                    var url = window.URL.createObjectURL(data);
+                    var a = document.createElement("a");
+                    a.href = url;
+                    a.download = filename;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    hideProgress();
+                },
+                error: function(xhr) {
+                    try {
+                        var errorResponse = JSON.parse(xhr.responseText);
+                        alert(errorResponse.error || "An error occurred while downloading the report.");
+                    } catch (e) {
+                        alert("An unexpected error occurred. Please try again.");
+                    }
+                    hideProgress();
+                }
+            });
+        });
+    </script>
+{% endblock main_content %}
