@@ -1,4 +1,3 @@
-Here’s an improved, well-structured **commented version of your README** with professional formatting, clarity, and minor grammar improvements:
 
 ---
 
@@ -135,6 +134,33 @@ python manage.py createsuperuser
 | Admin   | [admin@gmail.com](mailto:admin@gmail.com)     | admin    |
 | Staff   | [staff@gmail.com](mailto:staff@gmail.com)     | staff    |
 | Student | [student@gmail.com](mailto:student@gmail.com) | student  |
+
+
+---
+
+## 🖼 **Screenshots**
+
+### 🔑 **Admin Dashboard**
+![Admin Dashboard](screenshots/admin_dashboard.png)
+
+### 👩‍🏫 **Staff Portal**
+![Staff Portal](screenshots/staff_portal.png)
+
+### 🎓 **Student Dashboard**
+![Student Dashboard](screenshots/student_dashboard.png)
+
+### 📊 **Reports Section**
+![Reports](screenshots/reports.png)
+
+*(Make sure to create a `screenshots` folder in your repo and upload the images there.)*  
+
+---
+
+## 📂 **Sample Deviation Report**
+Download the **Deviation Report Excel File** here:  
+➡ [Deviation Report (.xlsm)](reports/deviation_report.xlsm)  
+
+*(Create a `reports` folder in your repo and upload `deviation_report.xlsm`.)*  
 
 ---
 
